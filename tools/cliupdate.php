@@ -198,7 +198,7 @@ if (!TableExists("glpi_configs")) {
    $glpilanguage        = $configurationValues['language'];
 }
 
-$migration = new CliMigration($current_version);
+$migration = new CliMigration(GLPI_VERSION);
 
 $migration->displayWarning("Current GLPI Data version: $current_version");
 $migration->displayWarning("Current GLPI Code version: ".GLPI_VERSION);
@@ -328,6 +328,7 @@ switch ($current_version) {
       update0901to0902();
 
    case "0.90.2" :
+   case "0.90.3" :
       include("../install/update_0902_91.php");
       update0902to091();
 

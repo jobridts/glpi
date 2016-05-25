@@ -159,7 +159,7 @@ class Item_Ticket extends CommonDBRelation{
       }
       $group = new Group_Ticket();
       $groups = $group->find("`tickets_id` = ". $input['tickets_id']. " AND `type` = ".CommonITILActor::REQUESTER);
-      
+
       if (count($groups) <= 0) {
          if (($input["items_id"] > 0) && !empty($input["itemtype"])) {
             if ($item = getItemForItemtype($input["itemtype"])) {
@@ -175,8 +175,10 @@ class Item_Ticket extends CommonDBRelation{
                                                 array('recursive' => true));
 
                      unset($ticket->fields['items_groups']);
-                     
-                     $group->add(array('tickets_id' => $input['tickets_id'], 'groups_id' => $item->fields['groups_id'], 'type' => CommonITILActor::REQUESTER));
+
+                     if ($item->fields['groups_id'] > 0) {
+                        $group->add(array('tickets_id' => $input['tickets_id'], 'groups_id' => $item->fields['groups_id'], 'type' => CommonITILActor::REQUESTER));
+                     }
                   }
                }
             }
@@ -260,10 +262,14 @@ class Item_Ticket extends CommonDBRelation{
       $tt = new TicketTemplate();
       if (isset($options['_tickettemplate'])) {
          $tt                  = $options['_tickettemplate'];
-         $opt['templates_id'] = $tt->fields['id'];
+         if (isset($tt->fields['id'])) {
+            $opt['templates_id'] = $tt->fields['id'];
+         }
       } else if (isset($options['templates_id'])) {
          $tt->getFromDBWithDatas($options['templates_id']);
-         $opt['templates_id'] = $tt->fields['id'];
+         if (isset($tt->fields['id'])) {
+            $opt['templates_id'] = $tt->fields['id'];
+         }
       }
 
       $rand  = mt_rand();
@@ -387,7 +393,7 @@ class Item_Ticket extends CommonDBRelation{
          return false;
       }
 
-      $canedit = ($ticket->canEdit($instID)
+      $canedit = ($ticket->canAddItem($instID)
                   && isset($_SESSION["glpiactiveprofile"])
                   && $_SESSION["glpiactiveprofile"]["interface"] == "central");
       $rand    = mt_rand();
@@ -465,7 +471,11 @@ class Item_Ticket extends CommonDBRelation{
       $header_end .= "<th>".__('Entity')."</th>";
       $header_end .= "<th>".__('Name')."</th>";
       $header_end .= "<th>".__('Serial number')."</th>";
-      $header_end .= "<th>".__('Inventory number')."</th></tr>";
+      $header_end .= "<th>".__('Inventory number')."</th>";
+      if ($canedit && $number) {
+         $header_end .= "<th width='10'>".__('Update the item')."</th>";
+      }
+      echo "<tr>";
       echo $header_begin.$header_top.$header_end;
 
       $totalnb = 0;
@@ -536,6 +546,12 @@ class Item_Ticket extends CommonDBRelation{
                     "</td>";
                echo "<td class='center'>".
                       (isset($data["otherserial"])? "".$data["otherserial"]."" :"-")."</td>";
+               if ($canedit) {
+                  echo "<td width='10'>";
+                  Html::showMassiveActionCheckBox($itemtype, $data["id"]);
+                  echo "</td>";
+               }
+
                echo "</tr>";
             }
             $totalnb += $nb;
