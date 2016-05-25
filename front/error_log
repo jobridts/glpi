@@ -1,0 +1,7 @@
+[07-Apr-2016 11:25:22 UTC] PHP Fatal error:  Interface 'PluginDatainjectionInjectionInterface' not found in /home/jobridts/public_html/glpi/plugins/tag/inc/taginjection.class.php on line 3
+[07-Apr-2016 11:26:14 UTC] PHP Fatal error:  Interface 'PluginDatainjectionInjectionInterface' not found in /home/jobridts/public_html/glpi/plugins/tag/inc/taginjection.class.php on line 3
+[07-Apr-2016 11:26:47 UTC] PHP Fatal error:  Interface 'PluginDatainjectionInjectionInterface' not found in /home/jobridts/public_html/glpi/plugins/tag/inc/taginjection.class.php on line 3
+[07-Apr-2016 11:27:17 UTC] PHP Fatal error:  Interface 'PluginDatainjectionInjectionInterface' not found in /home/jobridts/public_html/glpi/plugins/tag/inc/taginjection.class.php on line 3
+[07-Apr-2016 13:41:15 UTC] PHP Fatal error:  Interface 'PluginDatainjectionInjectionInterface' not found in /home/jobridts/public_html/glpi/plugins/tag/inc/taginjection.class.php on line 3
+[07-Apr-2016 13:47:23 UTC] PHP Fatal error:  Interface 'PluginDatainjectionInjectionInterface' not found in /home/jobridts/public_html/glpi/plugins/tag/inc/taginjection.class.php on line 3
+[07-Apr-2016 13:49:37 UTC] PHP Fatal error:  Interface 'PluginDatainjectionInjectionInterface' not found in /home/jobridts/public_html/glpi/plugins/tag/inc/taginjection.class.php on line 3
